@@ -1,0 +1,164 @@
+---
+title: Installation
+description: Step-by-step instructions to install Hypr on various operating systems and environments.
+---
+
+## System Requirements
+
+Before installing Hypr, ensure your system meets these minimum requirements.
+
+<Callout kind="info">
+
+Hypr runs on modern hardware with hardware virtualization support.
+
+</Callout>
+
+| Requirement | Minimum |
+|-------------|---------|
+| CPU | x86_64 or ARM64 with virtualization (Intel VT-x / AMD-V / Apple Silicon) |
+| RAM | 2 GB available |
+| Disk | 500 MB free space |
+| OS | macOS 12+, Ubuntu 20.04+, Windows 10+ (WSL2 recommended) |
+
+## Installation Methods
+
+Choose the best method for your environment.
+
+<Columns cols={2}>
+  <Card title="Package Managers" icon="package" href="#package-managers">
+    Fastest option using native tools like Homebrew or apt.
+  </Card>
+  <Card title="Build from Source" icon="code" href="#build-from-source">
+    Latest features or custom builds.
+  </Card>
+</Columns>
+
+## Package Manager Installation
+
+Install Hypr using your system's package manager.
+
+<Tabs>
+  <Tab title="macOS" icon="apple">
+
+    Use Homebrew for a quick setup.
+
+    <Steps>
+      <Step title="Update Homebrew" icon="refresh-cw">
+        ```bash
+        brew update
+        ```
+      </Step>
+      <Step title="Install Hypr" icon="download">
+        ```bash
+        brew install hypr
+        ```
+      </Step>
+    </Steps>
+
+  </Tab>
+  <Tab title="Ubuntu/Debian" icon="linux">
+
+    Add the Hypr repository and install.
+
+    <Steps>
+      <Step title="Add GPG Key" icon="key">
+        ```bash
+        curl -fsSL https://repo.hypr.sh/gpg.key | sudo gpg --dearmor -o /usr/share/keyrings/hypr-archive-keyring.gpg
+        ```
+      </Step>
+      <Step title="Add Repository" icon="plus">
+        ```bash
+        echo "deb [signed-by=/usr/share/keyrings/hypr-archive-keyring.gpg] https://repo.hypr.sh stable main" | sudo tee /etc/apt/sources.list.d/hypr.list > /dev/null
+        ```
+      </Step>
+      <Step title="Install" icon="download">
+        ```bash
+        sudo apt update && sudo apt install hypr
+        ```
+      </Step>
+    </Steps>
+
+  </Tab>
+  <Tab title="Windows (WSL2)" icon="monitor">
+
+    Install via winget or Scoop.
+
+    <CodeGroup tabs="winget,Scoop">
+      ```bash
+      winget install HyprRuntime.Hypr
+      ```
+      ```bash
+      scoop bucket add hypr https://github.com/hypr/scoop-bucket
+      scoop install hypr
+      ```
+    </CodeGroup>
+
+  </Tab>
+</Tabs>
+
+## Build from Source
+
+For the latest development version or custom builds.
+
+<Expandable title="Advanced: Build Instructions" default-open="false">
+
+Clone the repository and build using Cargo (Rust-based).
+
+<Steps>
+  <Step title="Prerequisites" icon="check-circle">
+    Install Rust: ```bash curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh ```
+  </Step>
+  <Step title="Clone Repository" icon="git-branch">
+    ```bash
+    git clone https://github.com/hypr/hypr.git
+    cd hypr
+    ```
+  </Step>
+  <Step title="Build and Install" icon="hammer">
+    ```bash
+    cargo build --release
+    sudo cargo install --path .
+    ```
+  </Step>
+</Steps>
+
+</Expandable>
+
+## Verify Installation
+
+Confirm Hypr installed correctly.
+
+<Steps>
+  <Step title="Check Version" icon="info">
+    Run the version command:
+
+    ```bash
+    hypr --version
+    ```
+
+    Expected output: `hypr 1.2.0`
+  </Step>
+  <Step title="Test Runtime" icon="play-circle">
+    Create a simple test:
+
+    ```bash
+    echo 'console.log("Hypr microVM ready")' > test.js
+    hypr run test.js
+    ```
+
+    You should see: `Hypr microVM ready`
+  </Step>
+  <Step title="List MicroVMs" icon="list">
+    ```bash
+    hypr list
+    ```
+
+    Lists active microVMs (empty if none running).
+  </Step>
+</Steps>
+
+<Callout kind="tip">
+
+Troubleshoot issues by checking logs with `hypr logs` or ensure virtualization is enabled in BIOS/UEFI.
+
+</Callout>

@@ -1,0 +1,156 @@
+---
+title: Changelog
+description: Track the evolution of Hypr with detailed release notes for each version update.
+---
+
+## Recent Releases
+
+Stay updated with Hypr's latest improvements. You review changes here before upgrading your microvm runtime. Check the tags to identify breaking changes that require code adjustments.
+
+<Callout kind="info">
+  Subscribe to our GitHub releases for instant notifications on new versions.
+</Callout>
+
+<Columns cols={3}>
+  <Card title="v1.2.0" icon="zap" href="#v120">
+    Enhanced performance and new snapshot features.
+  </Card>
+  <Card title="v1.1.0" icon="trending-up" href="#v110">
+    Improved networking and security fixes.
+  </Card>
+  <Card title="v1.0.0" icon="rocket" href="#v100">
+    Initial stable release with core microvm support.
+  </Card>
+</Columns>
+
+## Upgrade Instructions
+
+Follow these steps to update Hypr safely.
+
+<Steps>
+  <Step title="Backup Configurations" icon="database">
+    Save your current `hypr.toml` and VM states.
+
+    ```bash
+    cp ~/.hypr/hypr.toml ~/hypr-backup.toml
+    hypr snapshot save all
+    ```
+  </Step>
+  <Step title="Update Binary" icon="download">
+    <Tabs>
+      <Tab title="macOS" icon="apple">
+        ```bash
+        brew upgrade hypr-runtime
+        ```
+      </Tab>
+      <Tab title="Linux" icon="linux">
+        ```bash
+        curl -fsSL https://get.hypr.sh | sh
+        ```
+      </Tab>
+      <Tab title="Docker" icon="docker">
+        ```bash
+        docker pull hypr/runtime:latest
+        ```
+      </Tab>
+    </Tabs>
+  </Step>
+  <Step title="Verify Update" icon="check-circle">
+    Run `hypr --version` to confirm the new release.
+  </Step>
+</Steps>
+
+<Callout kind="danger">
+  Always test upgrades in a staging environment first, especially with `{breaking}` tag releases.
+</Callout>
+
+## Detailed Release Notes
+
+<Update label="2024-10-15" description="v1.2.0" tags={["feature", "improvement"]}>
+
+## New Features
+
+- Added live snapshot restore for zero-downtime deployments
+- Support for ARM64 guest images in microvms
+
+## Improvements
+
+- Reduced cold start time by `>30%` with optimized kernel loading
+- Enhanced logging with structured JSON output
+
+## Bug Fixes
+
+- Fixed race condition in multi-VM networking
+- Resolved panic on high-load CPU pinning
+
+</Update>
+
+<Update label="2024-09-20" description="v1.1.0" tags={["bugfix", "security"]}>
+
+## Security Fixes
+
+- Patched CVE-2024-5678 in virtio-net driver
+- Enforced stricter seccomp profiles by default
+
+## Improvements
+
+- Added `hypr metrics` CLI for runtime observability
+- Optimized memory ballooning for better density
+
+## Bug Fixes
+
+- Fixed VM shutdown hang on Windows guests
+- Corrected volume mount permissions on Linux hosts
+
+<Expandable title="Migration Guide" default-open="false">
+
+Update your `hypr.toml`:
+
+```toml
+[vm.metrics]
+enabled = true
+port = 9090
+```
+
+Restart VMs after applying.
+
+</Expandable>
+
+</Update>
+
+<Update label="2024-08-10" description="v1.0.0" tags={["breaking", "feature"]}>
+
+## Breaking Changes
+
+- Removed legacy `balloon` config; use `memory.balloons` instead
+- Default CPU pinning changed to host topology-aware
+
+## New Features
+
+- Core microvm runtime with Firecracker compatibility
+- Built-in support for container-to-VM conversions
+
+## Improvements
+
+- Initial WebAssembly guest support
+- Prometheus endpoint for `/metrics`
+
+To migrate:
+
+<CodeGroup tabs="TOML,JSON">
+```toml
+[vm.cpus]
+pinning = "host-aware"
+```
+```json
+{
+  "vm": {
+    "cpus": {
+      "pinning": "host-aware"
+    }
+  }
+}
+```
+</CodeGroup>
+
+</Update>
