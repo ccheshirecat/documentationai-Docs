@@ -3,10 +3,10 @@
   "initialRoute": "introduction",
   "colors": {
     "light": {
-      "brand": "#3B82F6"
+      "brand": "#dedede"
     },
     "dark": {
-      "brand": "#6ca1f8"
+      "brand": "#e0e1e6"
     }
   },
   "navigation": {
@@ -16,23 +16,18 @@
         "icon": "book",
         "groups": [
           {
-            "group": "Getting Started",
+            "group": "Introduction",
             "icon": "rocket",
             "pages": [
               {
-                "title": "Introduction",
-                "path": "introduction",
+                "title": "Index",
+                "path": "index",
                 "icon": "star"
               },
               {
-                "title": "Quickstart",
-                "path": "quickstart",
+                "title": "Getting Started",
+                "path": "getting-started.md",
                 "icon": "zap"
-              },
-              {
-                "title": "Installation",
-                "path": "installation",
-                "icon": "play"
               }
             ]
           },
@@ -46,33 +41,42 @@
                 "icon": "settings"
               },
               {
-                "title": "Commands",
-                "path": "commands",
+                "title": "Architecture",
+                "path": "architecture",
                 "icon": "terminal"
+              },
+              {
+                "title": "Building Images",
+                "path": "building-images",
+                "icon": "play"
+              },
+              {
+                "title": "Compose Stacks",
+                "path": "compose",
+                "icon": "play"
               }
             ]
           }
         ]
       },
       {
-        "tab": "API Reference",
+        "group": "References",
         "icon": "code",
-        "groups": [
-          {
-            "group": "Endpoints",
-            "icon": "server",
-            "openapi": "openapi.yaml"
-          }
-        ]
-      },
-      {
-        "tab": "Changelog",
-        "icon": "clock",
         "pages": [
           {
-            "title": "Release History",
-            "path": "changelog",
-            "icon": "history"
+            "title": "CLI Reference",
+            "path": "cli-reference",
+            "icon": "code"
+          },
+          {
+            "title": "GPU Passthrough",
+            "path": "gpu",
+            "icon": "tool"
+          },
+          {
+            "title": "Troubleshooting",
+            "path": "troubleshooting",
+            "icon": "code"
           }
         ]
       }
